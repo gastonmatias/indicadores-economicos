@@ -1,10 +1,10 @@
-import { IndicatorCard, IndicatorDetails } from "@/components";
-import { Layout } from "@/components/layouts/Layout"
-import { FullIndicator, IndicatorListResponse, SmallIndicator, UnidadMedida } from "@/interfaces";
-import { addSymbolToValue, dateFunctions, unidadesDeMedida } from "@/utils";
-import { Card, CardContent, CardHeader, Divider, Grid, Toolbar, Typography } from "@mui/material"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useState } from "react";
+
+import {  IndicatorDetails, Layout, LineChart } from "@/components";
+import { FullIndicator, IndicatorListResponse } from "@/interfaces";
+import { addSymbolToValue, dateFunctions } from "@/utils";
+import { Typography,Card, CardContent, CardHeader, Divider, Grid } from "@mui/material"
+
 import mindicadorApi from '../../api/mindicadorApi';
 
 interface Props  {
@@ -22,8 +22,8 @@ const IndicatorName: NextPage<Props> = ({indicator}) => {
         container 
         gap={2}
         direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
+        justifyContent="center"
+        alignItems="center"
         >
         <Grid item xs={12}>
           <Divider/>
@@ -31,13 +31,11 @@ const IndicatorName: NextPage<Props> = ({indicator}) => {
           <Divider/>
         </Grid>
         
-        <Grid item xs={12} sm={4} justifyContent='center'>
-                {/* <Typography variant="h4">Hoy</Typography> */}
+        <Grid item xs={12} sm={3}  justifyContent='center'>
                 <Card sx={{mx:0, my:4,maxWidth: 280}}  >
                 {/* <Card sx={{mx:0, py:0, minWidth:'300px'}}  > */}
                     <CardHeader 
                       title='Actual' 
-                      // title='Last Update' 
                       subheader={dateFunctions.getFormatDateForCard(new Date(indicator.serie[0].fecha))}/>
                     <CardContent>
                         <Typography align='center' variant="h4">{addSymbolToValue(unidad_medida, indicator.serie[0].valor)}</Typography>
@@ -46,21 +44,16 @@ const IndicatorName: NextPage<Props> = ({indicator}) => {
                 </Card>
         </Grid>
 
-        <Grid item xs={12} sm={7}>
+        {/* //#region[blue] */}
+        <Grid item xs={12} sm={8} >
+          <LineChart indicator={indicator} />
+        </Grid>
+        {/* //#endregion */}
+
+        <Grid item xs={12} sm={8}>
           <Typography variant="h5">Historial</Typography>
           <IndicatorDetails indicator={indicator}/>
         </Grid>
-
-        {/* {serie.map((e,index) => (
-            <Grid item key={e.fecha.toString()} xs={3}>
-                <Card sx={{mx:1, py:1}} >
-                    <CardContent>
-                        <Typography variant="h5">{addSymbolToValue(unidad_medida, e.valor)}</Typography>
-                        <Typography variant="body2">{dateFunctions.getFormatDateForCard(new Date(e.fecha))}</Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-        ))} */}
 
       </Grid>
 

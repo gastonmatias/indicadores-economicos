@@ -23,3 +23,11 @@ export const getFormatDateForCard = (date: Date) => {
     return `${parsedDate}`
 
 }
+
+export const getFormatDateForChart = (date: Date) => {
+    
+    const parsedDate = format(date,'dd/MM/yy',{locale: es}) 
+
+    return `${parsedDate}`
+
+}

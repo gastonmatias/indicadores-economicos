@@ -27,21 +27,11 @@ export const ClippedDrawer = () => {
   
   const names: string[] = ['uf','ivp','dolar','dolar_intercambio','euro','ipc','utm','imacec','tpm','libra_cobre','tasa_desempleo','bitcoin']
 
+  // obtener nombre de pagina actual, para marcar el ListItem del drawer
   const router = useRouter()
   const { name } = router.query
 
-  console.log(name);
-
-  // const [selectedIndex, setSelectedIndex] = useState<number>(13);
-
-  const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number, text: string) => {
-    // setSelectedIndex(index);
-    router.push(text)
-    // router.push(`/indicador/${text}`)
-  };
-
   const theme = useTheme();
-
 
   return (
     <>
@@ -97,7 +87,7 @@ export const ClippedDrawer = () => {
                   ":hover": { backgroundColor: theme.palette.primary.main}
                 }}
                 >
-              <ListItemButton selected={name === undefined }  onClick={(event) => handleListItemClick(event, 13, '/')} divider>
+              <ListItemButton selected={name === undefined }  onClick={() =>  router.push(`/`)} divider>
                   <ListItemIcon sx={{color: 'white'}} >
                     <LabelImportantIcon/>
                   </ListItemIcon>
@@ -119,7 +109,6 @@ export const ClippedDrawer = () => {
                   ":hover": { backgroundColor: theme.palette.primary.main},
                 }}
                 >
-                {/* <ListItemButton divider selected={name === text }  onClick={(event) => handleListItemClick(event, index, `/indicador/${text}`)}> */}
                 <ListItemButton divider selected={name===text }  onClick={() =>  router.push(`/indicador/${text}`)}>
                   <ListItemIcon sx={{color: 'white'}} >
                     <LabelImportantIcon/>
